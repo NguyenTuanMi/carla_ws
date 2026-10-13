@@ -1,0 +1,87 @@
+x-common-config: &common-config
+  stdin_open: true
+  tty: true
+  network_mode: host
+  ipc: host
+  ulimits:
+    memlock:
+      soft: -1
+      hard: -1
+  group_add:
+    - video
+  environment: &common-env
+    - TZ=${TZ:-Asia/Singapore}
+    - RCUTILS_COLORIZED_OUTPUT=1
+    - ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-0}
+    - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+    - CARLA_HOST=${CARLA_HOST:-127.0.0.1}
+    - CARLA_PORT=${CARLA_PORT:-2000}
+    - SCENARIO_ARGS=${SCENARIO_ARGS:-}
+    - TRAFFIC_ARGS=${TRAFFIC_ARGS:-}
+    - BAG_TOPICS=${BAG_TOPICS:-/clock}
+    - DISPLAY=${DISPLAY}
+    - XAUTHORITY=/home/carlauser/.Xauthority
+  volumes:
+    - .:/home/carlauser/carla_ws
+    - ./dependencies/scenario_runner:/opt/scenario_runner
+    - ./dependencies/PythonAPI/carla:/opt/carla_src/PythonAPI/carla
+    - /dev/shm:/dev/shm
+    - /dev:/dev_host
+    - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    - ${HOME}/.Xauthority:/home/carlauser/.Xauthority:ro
+  entrypoint: ["/bin/bash", "/home/carlauser/carla_ws/scripts/entrypoint.sh"]
+
+x-ros-config: &ros-config
+  <<: *common-config
+  build:
+    context: .
+    dockerfile: ./docker/carla_ros.dockerfile
+    args:
+      USERNAME: carlauser
+      USER_UID: ${USER_UID:-1000}
+      USER_GID: ${USER_GID:-1000}
+  image: carla_ros2_humble:latest
+  hostname: carla-ros-container
+  extra_hosts:
+    - "carla-ros-container:127.0.0.1"
+
+services:
+  # --- DEVELOPMENT SHELL ---
+  dev:
+    <<: *ros-config
+    command: ["bash"]
+
+  # --- SIMULATION CLIENTS ---
+  # NPC traffic via CARLA Python API (no ROS 2 equivalent for TrafficManager)
+  traffic:
+    <<: *ros-config
+    command: ["bash", "-c", "python3 /home/carlauser/carla_ws/scripts/generate_traffic.py --host $$CARLA_HOST --port $$CARLA_PORT $$TRAFFIC_ARGS"]
+
+  # Ego vehicle keyboard control via ROS 2 teleop → /carla/ego_vehicle/vehicle_control_cmd
+  # Requires a converter node in your carla_ws that bridges Twist → CarlaEgoVehicleControl
+  teleop:
+    <<: *ros-config
+    command: ["ros2", "run", "teleop_twist_keyboard", "teleop_twist_keyboard",
+              "--ros-args", "-r", "/cmd_vel:=/carla/ego_vehicle/cmd_vel"]
+
+  # ScenarioRunner — Python script only, no ROS 2 package equivalent
+  scenario_runner:
+    <<: *ros-config
+    command: ["bash", "-c", "python3 $$SCENARIO_RUNNER_ROOT/scenario_runner.py --host $$CARLA_HOST --port $$CARLA_PORT --waitForEgo $$SCENARIO_ARGS"]
+
+  # --- DATA COLLECTION ---
+  cabin_camera:
+    <<: *ros-config
+    device_cgroup_rules:
+      - 'c 81:* rmw'   # All V4L2 cameras (/dev/video*)
+    command: ["ros2", "run", "usb_cam", "usb_cam_node_exe", "--ros-args",
+              "-r", "__ns:=/cabin", "-p", "video_device:=/dev_host/video0"]
+
+  rosbag_recorder:
+    <<: *ros-config
+    command: ["bash", "-c", "ros2 bag record -s mcap -o bags/run_$$(date +%Y%m%d_%H%M%S) $$BAG_TOPICS"]
+
+  # Foxglove Studio bridge — open ws://localhost:8766 in Foxglove Studio
+  foxglove:
+    <<: *ros-config
+    command: ["ros2", "launch", "foxglove_bridge", "foxglove_bridge_launch.xml", "port:=8766"]

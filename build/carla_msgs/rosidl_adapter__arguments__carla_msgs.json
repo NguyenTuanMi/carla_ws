@@ -1,0 +1,26 @@
+{
+  "package_name": "carla_msgs",
+  "non_idl_tuples": [
+    "/home/carlauser/carla_ws/src/ros-carla-msgs:msg/CarlaBoundingBox.msg",
+    "/home/carlauser/carla_ws/src/ros-carla-msgs:msg/CarlaEgoVehicleControl.msg",
+    "/home/carlauser/carla_ws/src/ros-carla-msgs:msg/CarlaEgoVehicleStatus.msg",
+    "/home/carlauser/carla_ws/src/ros-carla-msgs:msg/CarlaEgoVehicleInfoWheel.msg",
+    "/home/carlauser/carla_ws/src/ros-carla-msgs:msg/CarlaEgoVehicleInfo.msg",
+    "/home/carlauser/carla_ws/src/ros-carla-msgs:msg/CarlaCollisionEvent.msg",
+    "/home/carlauser/carla_ws/src/ros-carla-msgs:msg/CarlaLaneInvasionEvent.msg",
+    "/home/carlauser/carla_ws/src/ros-carla-msgs:msg/CarlaWorldInfo.msg",
+    "/home/carlauser/carla_ws/src/ros-carla-msgs:msg/CarlaActorInfo.msg",
+    "/home/carlauser/carla_ws/src/ros-carla-msgs:msg/CarlaActorList.msg",
+    "/home/carlauser/carla_ws/src/ros-carla-msgs:msg/CarlaControl.msg",
+    "/home/carlauser/carla_ws/src/ros-carla-msgs:msg/CarlaStatus.msg",
+    "/home/carlauser/carla_ws/src/ros-carla-msgs:msg/CarlaTrafficLightInfo.msg",
+    "/home/carlauser/carla_ws/src/ros-carla-msgs:msg/CarlaTrafficLightInfoList.msg",
+    "/home/carlauser/carla_ws/src/ros-carla-msgs:msg/CarlaTrafficLightStatus.msg",
+    "/home/carlauser/carla_ws/src/ros-carla-msgs:msg/CarlaTrafficLightStatusList.msg",
+    "/home/carlauser/carla_ws/src/ros-carla-msgs:msg/CarlaWalkerControl.msg",
+    "/home/carlauser/carla_ws/src/ros-carla-msgs:msg/CarlaWeatherParameters.msg",
+    "/home/carlauser/carla_ws/src/ros-carla-msgs:srv/SpawnObject.srv",
+    "/home/carlauser/carla_ws/src/ros-carla-msgs:srv/DestroyObject.srv",
+    "/home/carlauser/carla_ws/src/ros-carla-msgs:srv/GetBlueprints.srv"
+  ]
+}
