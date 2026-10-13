@@ -1,1 +1,0 @@
-/home/carlauser/carla_ws/src/ros-carla-msgs/msg/CarlaWalkerControl.msg

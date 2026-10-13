@@ -1,6 +1,0 @@
-Invoking command in '/home/carlauser/carla_ws/build/carla_msgs': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/carlauser/carla_ws/src/ros-carla-msgs -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/carlauser/carla_ws/install/carla_msgs
-Invoked command in '/home/carlauser/carla_ws/build/carla_msgs' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/carlauser/carla_ws/src/ros-carla-msgs -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/carlauser/carla_ws/install/carla_msgs
-Invoking command in '/home/carlauser/carla_ws/build/carla_msgs': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/carlauser/carla_ws/build/carla_msgs -- -j24 -l24
-Invoked command in '/home/carlauser/carla_ws/build/carla_msgs' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/carlauser/carla_ws/build/carla_msgs -- -j24 -l24
-Invoking command in '/home/carlauser/carla_ws/build/carla_msgs': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/carlauser/carla_ws/build/carla_msgs
-Invoked command in '/home/carlauser/carla_ws/build/carla_msgs' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/carlauser/carla_ws/build/carla_msgs

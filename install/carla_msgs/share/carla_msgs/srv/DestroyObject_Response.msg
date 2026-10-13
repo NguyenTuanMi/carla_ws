@@ -1,1 +1,0 @@
-/home/carlauser/carla_ws/build/carla_msgs/rosidl_cmake/srv/DestroyObject_Response.msg

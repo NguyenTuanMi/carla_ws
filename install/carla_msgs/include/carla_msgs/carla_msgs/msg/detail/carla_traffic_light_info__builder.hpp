@@ -1,1 +1,0 @@
-/home/carlauser/carla_ws/build/carla_msgs/rosidl_generator_cpp/carla_msgs/msg/detail/carla_traffic_light_info__builder.hpp

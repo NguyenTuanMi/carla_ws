@@ -1,1 +1,0 @@
-/home/carlauser/carla_ws/build/carla_msgs/rosidl_generator_rs/carla_msgs/rust/src/msg/rmw.rs

@@ -1,1 +1,0 @@
-/home/carlauser/carla_ws/build/carla_msgs/rosidl_generator_py/carla_msgs/msg/_carla_lane_invasion_event.py
