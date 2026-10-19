@@ -9,6 +9,7 @@ x-common-config: &common-config
       hard: -1
   group_add:
     - video
+    - 107
   environment: &common-env
     - TZ=${TZ:-Asia/Singapore}
     - RCUTILS_COLORIZED_OUTPUT=1
@@ -29,6 +30,9 @@ x-common-config: &common-config
     - /dev:/dev_host
     - /tmp/.X11-unix:/tmp/.X11-unix:rw
     - ${HOME}/.Xauthority:/home/carlauser/.Xauthority:ro
+  devices:
+    - /dev/input/js0:/dev/input/js0
+    - /dev/input/event26:/dev/input/event26
   entrypoint: ["/bin/bash", "/home/carlauser/carla_ws/scripts/entrypoint.sh"]
 
 x-ros-config: &ros-config
@@ -85,3 +89,11 @@ services:
   foxglove:
     <<: *ros-config
     command: ["ros2", "launch", "foxglove_bridge", "foxglove_bridge_launch.xml", "port:=8766"]
+  
+  g29:
+    <<: *ros-config
+    devices:
+      - /dev/input/js0:/dev/input/js0   
+    device_cgroup_rules:
+      - 'c 13:* rmw'                    
+    command: ["ros2", "launch", "g29_control", "manual_recording.launch.py"]
