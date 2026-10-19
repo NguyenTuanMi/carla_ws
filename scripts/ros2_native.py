@@ -93,7 +93,7 @@ def main(args):
 
         _ = world.tick()
 
-        vehicle.set_autopilot(True)
+        # vehicle.set_autopilot(False)
 
         logging.info("Running...")
 
