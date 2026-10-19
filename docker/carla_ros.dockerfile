@@ -46,6 +46,7 @@ RUN set -eux; \
         ros-${ROS_DISTRO}-usb-cam \
         ros-${ROS_DISTRO}-rosbag2-storage-mcap \
         ros-${ROS_DISTRO}-foxglove-bridge \
+        ros-${ROS_DISTRO}-joy \
         python3-colcon-common-extensions; \
     rm -rf /var/lib/apt/lists/*
 

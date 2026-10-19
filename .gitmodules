@@ -4,3 +4,6 @@
 [submodule "src/carla_teleop"]
 	path = src/carla_teleop
 	url = https://github.com/NguyenTuanMi/carla_teleop.git
+[submodule "src/g29_control"]
+	path = src/g29_control
+	url = https://github.com/NguyenTuanMi/g29_control.git
