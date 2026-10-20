@@ -74,13 +74,6 @@ services:
     command: ["bash", "-c", "python3 $$SCENARIO_RUNNER_ROOT/scenario_runner.py --host $$CARLA_HOST --port $$CARLA_PORT --waitForEgo $$SCENARIO_ARGS"]
 
   # --- DATA COLLECTION ---
-  cabin_camera:
-    <<: *ros-config
-    device_cgroup_rules:
-      - 'c 81:* rmw'   # All V4L2 cameras (/dev/video*)
-    command: ["ros2", "run", "usb_cam", "usb_cam_node_exe", "--ros-args",
-              "-r", "__ns:=/cabin", "-p", "video_device:=/dev_host/video0"]
-
   rosbag_recorder:
     <<: *ros-config
     command: ["bash", "-c", "ros2 bag record -s mcap -o bags/run_$$(date +%Y%m%d_%H%M%S) $$BAG_TOPICS"]
@@ -93,7 +86,8 @@ services:
   g29:
     <<: *ros-config
     devices:
-      - /dev/input/js0:/dev/input/js0   
+      - /dev/input/js0:/dev/input/js0  
+      - /dev/input/event26:/dev/input/event26 
     device_cgroup_rules:
       - 'c 13:* rmw'                    
     command: ["ros2", "launch", "g29_control", "manual_recording.launch.py"]
