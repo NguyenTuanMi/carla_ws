@@ -1,0 +1,16 @@
+/**/g29_to_carla_node:
+  ros_parameters:
+    role_name: "ego_vehicle"
+    steer_axis: 0
+    throttle_axis: 5
+    brake_axis: 2
+/**/joy_node:
+  ros_parameters:
+    device_id: 0
+    deadzone: 0.05
+    autorepeat_rate: 20.0
+    coalesce_interval_ms: 1
+/**/route_logger_node:
+  ros_parameters:
+    role_name: "ego_vehicle"
+    output_file: "/tmp/route_log.csv"
