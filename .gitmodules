@@ -10,3 +10,6 @@
 [submodule "src/carla_extensions"]
 	path = src/carla_extensions
 	url = https://github.com/NguyenTuanMi/carla_extensions.git
+[submodule "src/carla_monitoring"]
+	path = src/carla_monitoring
+	url = https://github.com/NguyenTuanMi/carla_monitoring.git
