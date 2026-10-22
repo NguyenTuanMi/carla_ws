@@ -32,7 +32,7 @@ x-common-config: &common-config
     - ${HOME}/.Xauthority:/home/carlauser/.Xauthority:ro
   devices:
     - /dev/input/js0:/dev/input/js0
-    - /dev/input/event26:/dev/input/event26
+    - /dev/input/event23:/dev/input/event23
   entrypoint: ["/bin/bash", "/home/carlauser/carla_ws/scripts/entrypoint.sh"]
 
 x-ros-config: &ros-config
@@ -87,7 +87,7 @@ services:
     <<: *ros-config
     devices:
       - /dev/input/js0:/dev/input/js0  
-      - /dev/input/event26:/dev/input/event26 
+      - /dev/input/event23:/dev/input/event23 
     device_cgroup_rules:
       - 'c 13:* rmw'                    
     command: ["ros2", "launch", "g29_control", "manual_recording.launch.py"]
