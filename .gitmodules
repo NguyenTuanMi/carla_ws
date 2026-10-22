@@ -7,3 +7,6 @@
 [submodule "src/g29_control"]
 	path = src/g29_control
 	url = https://github.com/NguyenTuanMi/g29_control.git
+[submodule "src/carla_extensions"]
+	path = src/carla_extensions
+	url = https://github.com/NguyenTuanMi/carla_extensions.git
