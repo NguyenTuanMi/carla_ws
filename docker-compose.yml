@@ -32,7 +32,7 @@ x-common-config: &common-config
     - ${HOME}/.Xauthority:/home/carlauser/.Xauthority:ro
   devices:
     - /dev/input/js0:/dev/input/js0
-    - /dev/input/event23:/dev/input/event23
+    - /dev/input/event8:/dev/input/event8
   entrypoint: ["/bin/bash", "/home/carlauser/carla_ws/scripts/entrypoint.sh"]
 
 x-ros-config: &ros-config
@@ -82,12 +82,22 @@ services:
   foxglove:
     <<: *ros-config
     command: ["ros2", "launch", "foxglove_bridge", "foxglove_bridge_launch.xml", "port:=8766"]
+
+  # Carla extensions
+  carla_extensions:
+    <<: *ros-config
+    command: ["ros2", "run", "carla_extensions", "map_pose_publisher"]
+  
+  # Carla monitoring
+  carla_monitoring:
+    <<: *ros-config
+    command: ["ros2", "launch", "carla_monitoring", "monitoring.launch.py"]
   
   g29:
     <<: *ros-config
     devices:
       - /dev/input/js0:/dev/input/js0  
-      - /dev/input/event23:/dev/input/event23 
+      - /dev/input/event8:/dev/input/event8
     device_cgroup_rules:
       - 'c 13:* rmw'                    
     command: ["ros2", "launch", "g29_control", "manual_recording.launch.py"]
