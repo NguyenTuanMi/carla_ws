@@ -4,6 +4,7 @@
 VEHICLE=$1
 NAMESPACE="carla"
 ENV_FILE=".env"
+LEADERBOARD_DIR=~/leaderboard
 
 # 3. Load environment variables
 source "$ENV_FILE"
@@ -26,21 +27,39 @@ tmux split-window -v -t $SESSION_NAME:0
 tmux split-window -h -t $SESSION_NAME:0.0
 tmux split-window -h -t $SESSION_NAME:0.2
 
-# Panel 0 (top-left): foxglove
-tmux send-keys -t $SESSION_NAME:0.0 "$DC_CMD up foxglove" C-m
+# Panel 0 (top-left): leaderboard
+tmux send-keys -t $SESSION_NAME:0.0 "cd $LEADERBOARD_DIR" C-m
+tmux send-keys -t $SESSION_NAME:0.0 "conda activate carla_0.9.16" C-m
+tmux send-keys -t $SESSION_NAME:0.0 "./run_leaderboard.sh" C-m
 
 # Panel 1 (top-right): g29 control
 tmux send-keys -t $SESSION_NAME:0.1 "$DC_CMD up g29" C-m
 
-# Panel 2 (bottom-left): rosbag record
-tmux send-keys -t $SESSION_NAME:0.2 "$DC_CMD up rosbag_recorder" C-m
+# Panel 2 (bottom-left): carla_monitoring
+tmux send-keys -t $SESSION_NAME:0.2 "$DC_CMD up carla_monitoring" C-m
+
+# Panel 3 (bottom-right): carla_extensions
+tmux send-keys -t $SESSION_NAME:0.3 "$DC_CMD up carla_extensions" C-m
+
+# Create new tmux session with first window
+tmux new-window -t $SESSION_NAME -n "debug"
+
+# 2x2 grid: split into top/bottom, then split each half in two.
+tmux split-window -v -t $SESSION_NAME:1
+tmux split-window -h -t $SESSION_NAME:1.0
+tmux split-window -h -t $SESSION_NAME:1.2
+
+# Panel 0 (top-left): foxglove
+tmux send-keys -t $SESSION_NAME:1.0 "$DC_CMD up foxglove" C-m
+
+# Panel 1 (top-right): rosbag recorder
+tmux send-keys -t $SESSION_NAME:1.1 "$DC_CMD up rosbag_recorder" C-m
+
+# Panel 2 (bottom-left): debug terminal
+tmux send-keys -t $SESSION_NAME:1.2 "$DC_CMD up -d dev && $DC_CMD exec dev bash" C-m
 
 # Panel 3 (bottom-right): debug terminal
-tmux send-keys -t $SESSION_NAME:0.3 "$DC_CMD up -d dev && $DC_CMD exec dev bash" C-m
-
-tmux select-pane -t $SESSION_NAME:0.3
-tmux attach-session -t $SESSION_NAME
-exit 0
+tmux send-keys -t $SESSION_NAME:1.3 "sleep 2 && $DC_CMD exec dev bash" C-m
 
 # --- FINALIZE ---
 # Select the first window/pane before attaching
