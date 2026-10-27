@@ -61,7 +61,7 @@ tmux send-keys -t $SESSION_NAME:0.1 "$DC_CMD up g29" C-m
 tmux send-keys -t $SESSION_NAME:0.2 "$DC_CMD up carla_monitoring" C-m
 
 # Panel 3 (bottom-right): carla_extensions
-tmux send-keys -t $SESSION_NAME:0.3 "$DC_CMD up carla_extensions" C-m
+tmux send-keys -t $SESSION_NAME:0.3 "sleep 33 && $DC_CMD up carla_extensions" C-m
 
 # Create new tmux session with first window
 tmux new-window -t $SESSION_NAME -n "debug"
