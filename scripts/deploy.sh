@@ -9,6 +9,28 @@ LEADERBOARD_DIR=~/leaderboard
 # 3. Load environment variables
 source "$ENV_FILE"
 
+G29_EVENT_LINK=$(ls /dev/input/by-id/*Logitech*G29*event-joystick 2>/dev/null | head -n 1)
+
+if [ -n "$G29_EVENT_LINK" ]; then
+    export G29_EVENT_DEVICE=$(readlink -f "$G29_EVENT_LINK")
+else
+    echo "[ERROR] Logitech G29 controller not detected! Stopping deployment."
+    exit 0
+fi
+
+G29_JS_LINK=$(ls /dev/input/by-id/*Logitech*G29* 2>/dev/null | grep -v 'event-joystick' | grep 'joystick' | head -n 1)
+
+if [ -n "$G29_JS_LINK" ]; then
+    export G29_JS_DEVICE=$(readlink -f "$G29_JS_LINK")
+else
+    echo "[ERROR] Logitech G29 controller not detected! Stopping deployment."
+    exit 0
+fi
+
+echo "[INFO] Successfully detected G29 Controller:"
+echo "  - JS Device:    $G29_JS_DEVICE"
+echo "  - Event Device: $G29_EVENT_DEVICE"
+
 # Configuration
 # Unique session name per vehicle to prevent overwriting
 SESSION_NAME="${NAMESPACE}_window"

@@ -31,8 +31,8 @@ x-common-config: &common-config
     - /tmp/.X11-unix:/tmp/.X11-unix:rw
     - ${HOME}/.Xauthority:/home/carlauser/.Xauthority:ro
   devices:
-    - /dev/input/js0:/dev/input/js0
-    - /dev/input/event8:/dev/input/event8
+    - ${G29_JS_DEVICE:-/dev/input/js0}:${G29_JS_DEVICE:-/dev/input/js0}
+    - ${G29_EVENT_DEVICE:-/dev/input/event8}:${G29_EVENT_DEVICE:-/dev/input/event8}
   entrypoint: ["/bin/bash", "/home/carlauser/carla_ws/scripts/entrypoint.sh"]
 
 x-ros-config: &ros-config
@@ -96,8 +96,8 @@ services:
   g29:
     <<: *ros-config
     devices:
-      - /dev/input/js0:/dev/input/js0  
-      - /dev/input/event8:/dev/input/event8
+      - ${G29_JS_DEVICE:-/dev/input/js0}:${G29_JS_DEVICE:-/dev/input/js0}
+      - ${G29_EVENT_DEVICE:-/dev/input/event8}:${G29_EVENT_DEVICE:-/dev/input/event8}
     device_cgroup_rules:
       - 'c 13:* rmw'                    
     command: ["ros2", "launch", "g29_control", "manual_recording.launch.py"]
