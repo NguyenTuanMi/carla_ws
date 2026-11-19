@@ -8,8 +8,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(dirname "$SCRIPT_DIR")"
 DEPS_DIR="$REPO_ROOT/dependencies"
 
-SCENARIO_RUNNER_VERSION="v0.9.16"
-CARLA_VERSION="0.9.16"
+SCENARIO_RUNNER_VERSION="v1.0"
+CARLA_VERSION="1.0"
 
 mkdir -p "$DEPS_DIR"
 

@@ -44,7 +44,7 @@ x-ros-config: &ros-config
       USERNAME: carlauser
       USER_UID: ${USER_UID:-1000}
       USER_GID: ${USER_GID:-1000}
-  image: carla_ros2_humble:latest
+  image: carla_1.0_ros2_humble:latest
   hostname: carla-ros-container
   extra_hosts:
     - "carla-ros-container:127.0.0.1"
@@ -57,6 +57,9 @@ services:
 
   # --- SIMULATION CLIENTS ---
   # NPC traffic via CARLA Python API (no ROS 2 equivalent for TrafficManager)
+  manual_control:
+    <<: *ros-config
+    command: ["bash", "-c", "python3 /home/carlauser/carla_ws/scripts/manual_control.py"]
   traffic:
     <<: *ros-config
     command: ["bash", "-c", "python3 /home/carlauser/carla_ws/scripts/generate_traffic.py --host $$CARLA_HOST --port $$CARLA_PORT $$TRAFFIC_ARGS"]
