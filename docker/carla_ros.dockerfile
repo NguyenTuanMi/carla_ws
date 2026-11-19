@@ -9,7 +9,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ARG ROS_SNAPSHOT=""
 
 # carla wheel version on PyPI — must match the server binary
-ARG CARLA_PIP_VERSION=0.9.16
+ARG CARLA_PIP_VERSION=1.0
 
 # --- System packages + ROS 2 Humble ---
 RUN set -eux; \
@@ -58,10 +58,11 @@ RUN set -eux; \
 # Note: jammy's pip (22.x) has no --break-system-packages flag and does not need it.
 COPY dependencies/PythonAPI/carla/requirements.txt /tmp/carla_requirements.txt
 COPY dependencies/scenario_runner/requirements.txt /tmp/scenario_runner_requirements.txt
+COPY dependencies/wheels/ /tmp/wheels/
 
 RUN printf 'numpy<2\n' > /tmp/constraints.txt \
     && pip3 install --no-cache-dir -c /tmp/constraints.txt \
-        carla==${CARLA_PIP_VERSION} pygame \
+        /tmp/wheels/carla-*.whl pygame \
         -r /tmp/carla_requirements.txt \
         -r /tmp/scenario_runner_requirements.txt
 
