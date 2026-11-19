@@ -26,6 +26,7 @@ x-common-config: &common-config
     - .:/home/carlauser/carla_ws
     - ./dependencies/scenario_runner:/opt/scenario_runner
     - ./dependencies/PythonAPI/carla:/opt/carla_src/PythonAPI/carla
+    - ./dependencies/wheels:/opt/wheels
     - /dev/shm:/dev/shm
     - /dev:/dev_host
     - /tmp/.X11-unix:/tmp/.X11-unix:rw
