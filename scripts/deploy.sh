@@ -51,7 +51,7 @@ tmux split-window -h -t $SESSION_NAME:0.2
 
 # Panel 0 (top-left): leaderboard
 tmux send-keys -t $SESSION_NAME:0.0 "cd $LEADERBOARD_DIR" C-m
-tmux send-keys -t $SESSION_NAME:0.0 "conda activate carla_0.9.16" C-m
+tmux send-keys -t $SESSION_NAME:0.0 "conda activate carla_1.0" C-m
 tmux send-keys -t $SESSION_NAME:0.0 "./run_leaderboard.sh" C-m
 
 # Panel 1 (top-right): g29 control
