@@ -90,7 +90,7 @@ services:
   # Carla extensions
   carla_extensions:
     <<: *ros-config
-    command: ["ros2", "run", "carla_extensions", "map_pose_publisher"]
+    command: ["ros2", "run", "carla_extensions", "extension_publisher"]
   
   # Carla monitoring
   carla_monitoring:
