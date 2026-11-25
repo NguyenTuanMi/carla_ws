@@ -1,4 +1,4 @@
-<h3 align="center">The ROS2 workspace for CARLA 0.9.16</h3>
+<h3 align="center">The ROS2 workspace for CARLA 1.0</h3>
 <p align="center">
   <em>Putting together the latest and greatest packages for development and deployment of CARLA autonomous vehicles</em>
 </p>
@@ -14,7 +14,7 @@
 
 ## Summary
 
-This workspace is for developing and deploying carla's software stacks using CARLA 0.9.16, SCENARIO 0.9.16, and an updated version of LEADERBOARD 2.1. It contains control packages, Docker configurations, and documentation. Core bringup and perception bringup packages are on the way to make development/deployment even easier. 
+This workspace is for developing and deploying carla's software stacks using CARLA 1.0, SCENARIO 1.0, and an updated version of LEADERBOARD (on branch ue58-dev). It contains control packages, Docker configurations, and documentation. Core bringup and perception bringup packages are on the way to make development/deployment even easier. 
 
 ## Docker Containerization
 
@@ -24,14 +24,7 @@ This codebase uses `ROS2 Humble + Ubuntu 22.04` for all developments/deployments
 
 ### 1. Docker installation
 
-**Install docker natively using `apt` instead of Docker Desktop**. It makes the setup and development as identical to a Linux environment and a Jetson device as possible.
-
-<details>
-<summary><b>For Jetson</b></summary>
-
-There is no need to install anything, Docker comes pre-installed on Jetson devices. Just make sure to run `sudo usermod -aG docker $USER` if you haven't done it already.
-
-</details>
+**Install docker natively using `apt` instead of Docker Desktop**. It makes the setup and development as identical to a Linux environment as possible.
 
 <details>
 <summary><b>For Windows (WSL2) and Linux</b></summary>
@@ -95,5 +88,5 @@ up-carla
 down-carla
 
 # Before up the system, please up the CARLA Simulation by navigating to the folder containing it and run with nvidia + ros2 native:
-./CarlaUE4.sh -prefernvidia --ros2
+./CarlaUnreal.sh -prefernvidia --ros2
 ```
